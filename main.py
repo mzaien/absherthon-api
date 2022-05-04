@@ -324,13 +324,18 @@ def main():
     return RedirectResponse(url="/docs")
 
 
+@app.get("/list")
+def list_reports():
+    reports = crud.list()
+    return reports
+
+
 # post request for Name Read
 @app.post("/api/model", response_model=schemas.predictionResponse)
 def check(body: schemas.Crime = Body(...)):
     print("crime", body.crime)
     result = check_report(body.crime)
     crud.insert(result)
-    crud.list()
     return result
 
 
