@@ -10,4 +10,4 @@ class Crime(BaseModel):
 class predictionResponse(BaseModel):
     type: str
     score: float
-    text: str
+    criem_report: str

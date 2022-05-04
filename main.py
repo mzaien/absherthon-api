@@ -1,8 +1,6 @@
 import os
-from typing import Optional
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, HTTPException, status
 import uvicorn
-import random
 from starlette.responses import RedirectResponse
 import schemas
 import crud
@@ -247,16 +245,16 @@ class SentimentNetwork:
                 print("-----------------True log---------------")
                 return {
                     "type": "بلاغ حقيقي",
-                    "score": pred,
-                    "text": testing_reviews[i]
+                    "criem_report": testing_reviews[i],
+                    "score": pred
                 }
             else:
                 print(testing_reviews[i]+": "+"بلاغ كاذب")
                 print("---------------False log-------------")
                 return {
                     "type": "بلاغ كاذب",
-                    "score": pred,
-                    "text": testing_reviews[i]
+                    "criem_report": testing_reviews[i],
+                    "score": pred
                 }
             if(pred == testing_labels[i]):
                 correct += 1
@@ -321,21 +319,37 @@ app = FastAPI()
 
 @app.get("/")
 def main():
+    "The api docs"
     return RedirectResponse(url="/docs")
 
 
 @app.get("/list")
 def list_reports():
+    """
+    This endpint return the list of crime reports stored on the DB
+    """
     reports = crud.list()
     return reports
 
 
 # post request for Name Read
 @app.post("/api/model", response_model=schemas.predictionResponse)
-def check(body: schemas.Crime = Body(...)):
-    print("crime", body.crime)
+def check_crime_report(body: schemas.Crime = Body(...)):
+    """
+    This endpoint is used to evalute the crime report if it is valid
+    it returns a body of :
+    -  "type": "string" if it was not valid it will be بلاغ كاذب eles بلاغ حقيقي
+    -  "score": float,
+    -  "criem_report": "string"  
+    it returns 400 if it got a low score as 0.5 or less 
+    """
     result = check_report(body.crime)
     crud.insert(result)
+    if result["score"] <= 0.5:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="بلاغ كاذب"
+        )
     return result
 
 
