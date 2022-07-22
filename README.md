@@ -33,3 +33,12 @@ Then, Add the supabase env variable to your .env file I gave an example in .evn.
 
 ## deploy on Railway
 [![Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fstarters%2Ftree%2Fmaster%2Fexamples%2Ffastapi)
+
+### Credits
+This project was made with the help of 
+- [Yasir Al-Abbas](https://github.com/YasirAlabas) 
+  - Designed the ml model
+- [Omar Al-Abbas](https://github.com/Omer-code)
+  - Designed the ml model
+- [Abdullah Mzaien](https://github.com/mzaien)
+  - Developed the server and deployed it 
