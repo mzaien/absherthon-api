@@ -1,18 +1,10 @@
----
-title: Absher api
-description: A FastAPI project for hacakthon
-tags:
-  - fastapi
-  - python
-  - Absher
----
-
+# Introducation
 This project is a FastAPI project for Abhsher hacakthon.
 that detects if a given string is a valid report for online crimes or not.
 
 It uses Python Fastapi and [Supabase database](https://supabase.com/) as a a database, and deploys on [Railway](https://railway.app/).
 
-# Run the project : 
+## Run the project : 
 Sign up on a Supabase account and create a new project/ or you can use [supabase cli](https://supabase.com/docs/guides/local-development#dependencies).
 with this DB schema:
 ```sql
