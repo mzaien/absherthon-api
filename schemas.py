@@ -1,4 +1,4 @@
-from pydantic import BaseModel  # ,constr
+from pydantic import BaseModel
 
 # Defines Various Schemas (JSON as calsses) for accepting request and returning response
 
